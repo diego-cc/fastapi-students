@@ -16,7 +16,7 @@ FLUSH PRIVILEGES;
 ```
 
 ### Create a virtual environment
-If you are using Anaconda on Windows, open your Anaconda Navigator and create a new virtual environment called __fastapi-students__. 
+If you are using Anaconda on Windows, you may open your Anaconda Navigator and create a new virtual environment called __fastapi-students__. Otherwise, simply run the command: `conda create --name fastapi-students`.
 
 Then, follow the steps below to install the required packages:
 1. Open Anaconda Prompt
