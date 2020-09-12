@@ -16,6 +16,10 @@ class StudentCreate(StudentBase):
     password: str
 
 
+class StudentUpdate(StudentCreate):
+    is_active: bool
+
+
 class Student(StudentBase):
     id: int
     is_active: bool

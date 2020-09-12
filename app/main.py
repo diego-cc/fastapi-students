@@ -54,3 +54,17 @@ def read_student_by_id(student_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Student not found")
     return db_student
 
+
+@app.post("/students", response_model=schemas.Student)
+def create_student(student: schemas.StudentCreate, db: Session = Depends(get_db)):
+    return actions.create_student(db=db, student=student)
+
+
+@app.put("/students/{student_id}", response_model=schemas.Student)
+def update_student(student: schemas.StudentUpdate, student_id: int, db: Session = Depends(get_db)):
+    return actions.update_student(db=db, student_id=student_id, student=student)
+
+
+@app.delete("/students/{student_id}", response_model=schemas.Student)
+def delete_student(student_id: int, db: Session = Depends(get_db)):
+    return actions.delete_student(db=db, student_id=student_id)
