@@ -3,7 +3,7 @@ This is a REST API that can be used to manage student records, implemented using
 
 ## Instructions
 ### Clone the project
-```bash
+```shell script
 git clone https://github.com/diego-cc/fastapi-students.git
 ```
 ### Create a database
@@ -23,7 +23,7 @@ Then, follow the steps below to install the required packages:
 2. Navigate to your project folder
 3. Switch your virtual environment to __fastapi-students__ by running this command: `conda activate fastapi-students`
 4. Install packages:
-```
+```shell script
 conda install -c conda-forge fastapi
 conda install -c conda-forge sqlalchemy
 conda install -c conda-forge uvicorn
@@ -34,8 +34,16 @@ conda install -c conda-forge pytest
 ### Run the application
 From your Anaconda Prompt (with your __fastapi-students__ environment activated), run the command below from the project root directory (one level above the `app` directory):
 
-```bash
+```shell script
 uvicorn app.main:app --reload
 ```
 
 You may now navigate to http://localhost:8000/docs to test the routes available.
+
+#### Running unit tests
+From the project root directory, execute:
+```shell script
+pytest
+```
+
+An SQLite database is created when unit tests run (in a file named `.test.db`). You may delete it afterwards.

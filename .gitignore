@@ -94,3 +94,5 @@ modules.xml
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains+all
 
 __pycache__/
+.pytest_cache/
+.test.db
