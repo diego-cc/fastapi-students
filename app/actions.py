@@ -4,11 +4,17 @@ Author: Diego C. <20026893@tafe.wa.edu.au>
 Created at: 12/09/2020 4:55 pm
 File: actions.py
 """
+from typing import Optional
+from sqlalchemy import or_
 from sqlalchemy.orm import Session
 from . import models, schemas
 
 
-def get_students(db: Session, skip: int = 0, limit: int = 100):
+def get_students(db: Session, skip: int = 0, limit: int = 100, search: Optional[str] = None):
+    if search is not None:
+        filtered_students = db.query(models.Student).filter(or_(
+            models.Student.name.ilike('%' + search + '%'), models.Student.email.ilike('%' + search + '%')))
+        return filtered_students.offset(skip).limit(limit).all()
     return db.query(models.Student).offset(skip).limit(limit).all()
 
 
@@ -20,7 +26,7 @@ def get_student_by_email(db: Session, student_email: str):
     return db.query(models.Student).filter(models.Student.email == student_email).first()
 
 
-def create_student(db: Session, student:schemas.StudentCreate):
+def create_student(db: Session, student: schemas.StudentCreate):
     db_student = models.Student(name=student.name, email=student.email, password=student.password)
     db.add(db_student)
     db.commit()

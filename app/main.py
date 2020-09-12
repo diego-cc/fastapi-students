@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 
-from fastapi import Depends, FastAPI, HTTPException, Request, Response
+from fastapi import Depends, FastAPI, HTTPException, Request, Response, Query
 from sqlalchemy.orm import Session
 
 from . import actions, schemas, models
@@ -42,9 +42,13 @@ def get_db():
 
 
 @app.get("/students", response_model=List[schemas.Student])
-def read_students(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    students = actions.get_students(db=db, skip=skip, limit=limit)
-    return students
+def read_students(
+        skip: int = 0,
+        limit: int = 100,
+        search: Optional[str] = Query(None, max_length=255),
+        db: Session = Depends(get_db)
+):
+    return actions.get_students(db=db, skip=skip, limit=limit, search=search)
 
 
 @app.get("/students/{student_id}", response_model=schemas.Student)
